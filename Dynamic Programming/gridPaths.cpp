@@ -28,7 +28,7 @@ void solve(){
                 dp[i][j] = 0;
             else{
                 int op1 = i < n - 1 ? dp[i + 1][j] : 0;
-                int op1 = j < n - 1 ? dp[i][j + 1] : 0;
+                int op2 = j < n - 1 ? dp[i][j + 1] : 0;
                 // transition
                 dp[i][j] = (op1 + op2) % MOD;
             }
