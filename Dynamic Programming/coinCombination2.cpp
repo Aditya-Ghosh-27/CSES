@@ -10,7 +10,7 @@ void solve(){
         cin >> coins[i];
     }
 
-    vector<vector<int>> dp(n + 1, vector<int>(x + 1));
+    vector<vector<int>> dp(n + 1, vector<int>(x + 1, 0));
 
     // base case
     for(int i = 0; i < n; i++){
@@ -26,7 +26,7 @@ void solve(){
             }
             // skip the ith coin
             int skip = dp[i + 1][k];
-            dp[i][j] = (pick + skip) % MOD;
+            dp[i][k] = (pick + skip) % MOD;
         }
     }
 
