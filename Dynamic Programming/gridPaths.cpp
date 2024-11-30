@@ -9,7 +9,6 @@ void solve(){
     for(int i = 0; i < n; i++){
         cin >> arr[i];
     }
-
     vector<vector<int>> dp(n, vector<int>(n));
 
     // base case
@@ -28,7 +27,7 @@ void solve(){
                 dp[i][j] = 0;
             else{
                 int op1 = i < n - 1 ? dp[i + 1][j] : 0;
-                int op1 = j < n - 1 ? dp[i][j + 1] : 0;
+                int op2 = j < n - 1 ? dp[i][j + 1] : 0;
                 // transition
                 dp[i][j] = (op1 + op2) % MOD;
             }
