@@ -4,16 +4,30 @@ using namespace std;
 
 void solve(){
     int n; cin >> n;
-    vector<vector<int>> events;
+    vector<pair<int, int>> movie_times(n);
     for(int i = 0; i < n; i++){
-        int st; cin >> st;
-        int en; cin >> en;
-        events.push_back({st, en});
+        cin >> movie_times[i].first >> movie_times[i].second;
     }
 
-    for(size_t i = 0; i < events.size(); i++){
-        
+    sort(movie_times.begin(), movie_times.end(), 
+        [](const pair<int, int>& a, const pair<int, int>& b){
+        return a.second < b.second;
+    });
+    
+    int cnt = 0;
+    int last_end = 0;
+
+    for(int i = 0; i < n; i++){
+        int start = movie_times[i].first;
+        int end = movie_times[i].second;
+
+        if(start >= last_end){
+            cnt++;
+            last_end = end;
+        }
     }
+
+    cout << cnt << '\n';
 }
 
 signed main(){

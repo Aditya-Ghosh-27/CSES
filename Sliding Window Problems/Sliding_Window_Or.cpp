@@ -4,35 +4,37 @@ using namespace std;
 
 struct BitwiseORWindow {
     vector<int> bitCount;
+    int current_or;
 
     BitwiseORWindow(){
         bitCount.assign(32, 0);
+        current_or = 0;
     }
 
     void add(int x){
-        for(int bit = 0; bit < 32; bit++){
-            if((x >> bit) & 1LL){
-                bitCount[bit]++;
+        while(x){
+            int bit = __builtin_ctzll(x);
+            if(bitCount[bit] == 0){
+                current_or |= (1LL << bit);
             }
+            bitCount[bit]++;
+            x &= (x - 1);
         }
     }
 
     void remove(int x){
-        for(int bit = 0; bit < 32; bit++){
-            if((x >> bit) & 1LL){
-                bitCount[bit]--;
+        while(x){
+            int bit = __builtin_ctzll(x);
+            bitCount[bit]--;
+            if(bitCount[bit] == 0){
+                current_or ^= (1LL << bit);
             }
+            x &= (x - 1);
         }
     }
 
     int get_or(){
-        int ans = 0;
-        for(int bit = 0; bit < 32; bit++){
-            if(bitCount[bit] > 0){
-                ans |= (1LL << bit);
-            }
-        }
-        return ans;
+        return current_or;
     }
 };
 
